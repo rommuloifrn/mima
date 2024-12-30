@@ -1,6 +1,12 @@
-# Nivers
+# Mima
 
 Tem problema em dar/receber presentes? Convide todo mundo pra cá!
+
+## Objetivos
+
+- [ ] Cadastro/Login
+- [ ] Adição de sugestões
+...
 
 ```mermaid
 classDiagram
