@@ -1,5 +1,5 @@
 from django.db import models
-from django.auth.contrib.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser
 
 # Create your models here.
 
@@ -11,8 +11,8 @@ class Amigo(AbstractBaseUser):
     #amizades = models.ManyToManyField("app.Amigo") assim seria melhor?
 
 class Amizade(models.Model):
-    remetente = models.ForeignKey("core.Amigo", on_delete=models.CASCADE)
-    destinatário = models.ForeignKey("core.Amigo", on_delete=models.CASCADE)
+    remetente = models.ForeignKey("core.Amigo", related_name='de_quem_e_amigo', on_delete=models.CASCADE)
+    destinatário = models.ForeignKey("core.Amigo", related_name='amigos', on_delete=models.CASCADE)
 
 class Item(models.Model):
     Amigo = models.ForeignKey("core.Amigo", on_delete=models.CASCADE)
