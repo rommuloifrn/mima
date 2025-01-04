@@ -1,12 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
-class Amigo(AbstractBaseUser):
-    bio = models.TextField()
-    data_de_nascimento = models.DateField(auto_now=False, auto_now_add=False)
-    foto = models.ImageField(upload_to=None, height_field=None, width_field=None, max_length=None)
+class Amigo(AbstractUser):
+    bio = models.TextField(null=True)
+    data_de_nascimento = models.DateField(null=True, auto_now=False, auto_now_add=False)
+    foto = models.ImageField(null=True, upload_to=None, height_field=None, width_field=None, max_length=None)
     
     #amizades = models.ManyToManyField("app.Amigo") assim seria melhor?
 
