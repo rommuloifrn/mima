@@ -1,15 +1,33 @@
 from django.shortcuts import render
+
 from django.views import View
 
 from django import http
 
-from .models import Amigo
+from .models import *
 
 # Create your views here.
 
 class HomeView(View):
     def get(self, request):
         return render(request, 'core/home.html')
+    
+class DashboardView(View):
+    def get(self, request):
+        amigos = reversed(request.user.de_quem_e_amigo.all())
+        return render(request, 'core/dashboard.html', {'amigos':amigos})
+    
+class EnviaAmizadeView(View):
+    def post(self, request):
+        pesquisa = request.POST.get('pesquisa')
+        
+        resultado = Amigo.objects.filter(username=pesquisa)
+        
+        if (resultado):
+            Amizade.objects.create(remetente=request.user, destinatario=resultado[0])
+            return http.HttpResponseRedirect('/dashboard')
+        else:
+            return  render(request, 'core/dashboard.html', {'erro':'foda'})
 
 class CadastroView(View):
     def get(self, request):
