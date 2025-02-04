@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='logout'),
     
     path('dashboard', DashboardView.as_view(), name='dashboard'),
+    path('perfil/<str:pk>', PerfilView.as_view(), name='perfil'),
     path('adiciona-amigo', EnviaAmizadeView.as_view(), name='adiciona-amigo')
 ]
 

@@ -20,6 +20,15 @@ class DashboardView(View):
     def get(self, request):
         amigos = reversed(request.user.de_quem_e_amigo.all())
         return render(request, 'core/dashboard.html', {'amigos':amigos})
+
+class PerfilView(View):
+    def get(self, request, *args, **kwargs):
+        user = Amigo.objects.get(username=kwargs['pk'])
+        context = {
+            'user': user,
+            'sugestoes': user.item_set.all()
+        }
+        return render(request, 'core/perfil.html', context)
     
 class EnviaAmizadeView(View):
     def post(self, request):
