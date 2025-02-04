@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://localhost:8000'
+]
+
 AUTH_USER_MODEL = "core.Amigo"
 
 

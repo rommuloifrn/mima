@@ -2,9 +2,13 @@ from django.shortcuts import render
 
 from django.views import View
 
+from django.contrib.auth.views import LoginView
+
 from django import http
 
 from .models import *
+
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 
@@ -29,6 +33,9 @@ class EnviaAmizadeView(View):
         else:
             return  render(request, 'core/dashboard.html', {'erro':'foda'})
 
+#class LoginView(LoginView):
+    
+
 class CadastroView(View):
     def get(self, request):
         return render(request, 'core/auth/cadastro.html')
@@ -41,4 +48,6 @@ class CadastroView(View):
         )
         
         amigo.save()
+        login(request, amigo)
         return http.HttpResponseRedirect('/')
+        ## redirecionar para o dashboard, usuário já logado
