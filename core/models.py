@@ -22,8 +22,8 @@ class Amizade(models.Model):
         return str(self.rementente) + " é amigo de " + str(self.destinatario)
     
 
-class Item(models.Model):
-    Amigo = models.ForeignKey("core.Amigo", on_delete=models.CASCADE)
+class Sugestao(models.Model):
+    amigo = models.ForeignKey("core.Amigo", on_delete=models.CASCADE)
     nome = models.CharField(max_length=50)
     link = models.CharField(max_length=50)
     descricao = models.TextField()

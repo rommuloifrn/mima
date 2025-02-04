@@ -8,6 +8,8 @@ urlpatterns = [
     path('cadastro', CadastroView.as_view(), name='cadastro'),
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
+
+    path('adicionar-sugestao', AdicionarSugestaoView.as_view(), name='adicionar-sugestao'),
     
     path('dashboard', DashboardView.as_view(), name='dashboard'),
     path('perfil/<str:pk>', PerfilView.as_view(), name='perfil'),

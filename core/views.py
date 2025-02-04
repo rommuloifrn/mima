@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponseRedirect
 
 from django.views import View
 
@@ -9,6 +9,8 @@ from django import http
 from .models import *
 
 from django.contrib.auth import authenticate, login
+
+from .forms import *
 
 # Create your views here.
 
@@ -26,9 +28,26 @@ class PerfilView(View):
         user = Amigo.objects.get(username=kwargs['pk'])
         context = {
             'user': user,
-            'sugestoes': user.item_set.all()
+            'sugestoes': user.sugestao_set.all()
         }
         return render(request, 'core/perfil.html', context)
+
+class AdicionarSugestaoView(View):
+    def get(self, request):
+        form = SugestaoForm()
+        return render(request, 'core/c_sugestao.html', {'form':form})
+        
+    def post(self, request):
+        form = SugestaoForm(request.POST)
+
+        if form.is_valid():
+            Sugestao.objects.create(
+                amigo=request.user,
+                nome=form.cleaned_data['nome'],
+                link=form.cleaned_data['link'],
+                descricao=form.cleaned_data['descricao']
+            )
+        return HttpResponseRedirect('perfil/'+str(request.user))
     
 class EnviaAmizadeView(View):
     def post(self, request):
