@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from django.views import View
 
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 
 from django import http
 
@@ -33,8 +33,13 @@ class EnviaAmizadeView(View):
         else:
             return  render(request, 'core/dashboard.html', {'erro':'foda'})
 
-#class LoginView(LoginView):
+class LoginView(LoginView):
+    template_name = 'core/auth/login.html'
+    next_page = 'dashboard'
     
+class LogoutView(LogoutView):
+    next_page = ''
+    template_name = 'core/auth/logout.html'
 
 class CadastroView(View):
     def get(self, request):

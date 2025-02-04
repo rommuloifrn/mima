@@ -6,6 +6,8 @@ urlpatterns = [
     path('', HomeView.as_view()),
     
     path('cadastro', CadastroView.as_view(), name='cadastro'),
+    path('login', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
     
     path('dashboard', DashboardView.as_view(), name='dashboard'),
     path('adiciona-amigo', EnviaAmizadeView.as_view(), name='adiciona-amigo')

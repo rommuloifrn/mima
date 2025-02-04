@@ -1,3 +1,8 @@
 oI!
 {{request.user}}
 <a href="{% url 'cadastro' %}">Cadastrar</a>
+<a href="{% url 'login' %}">Login</a>
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+</form>
