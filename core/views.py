@@ -27,12 +27,22 @@ class DashboardView(View):
 
 class PerfilView(View):
     def get(self, request, *args, **kwargs):
+        try:
+            username=kwargs['pk']
+        except KeyError:
+            context = {
+                'user': request.user,
+            }
+            return render(request, 'core/perfil.html', context)
+            
+        
         user = Amigo.objects.get(username=kwargs['pk'])
         context = {
             'user': user,
             'sugestoes': user.sugestao_set.all()
         }
         return render(request, 'core/perfil.html', context)
+            
 
 class AdicionarSugestaoView(View):
     def get(self, request):

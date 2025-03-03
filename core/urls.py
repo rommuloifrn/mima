@@ -13,6 +13,7 @@ urlpatterns = [
     
     path('dashboard', DashboardView.as_view(), name='dashboard'),
     path('perfil/<str:pk>', PerfilView.as_view(), name='perfil'),
+    path('perfil', PerfilView.as_view(), name='perfil'),
     path('adiciona-amigo', EnviaAmizadeView.as_view(), name='adiciona-amigo')
 ]
 
