@@ -8,9 +8,11 @@ from django import http
 
 from .models import *
 
+from .forms import *
+
 from django.contrib.auth import authenticate, login
 
-from .forms import *
+
 
 # Create your views here.
 
@@ -74,13 +76,16 @@ class CadastroView(View):
         return render(request, 'core/auth/cadastro.html')
     
     def post(self, request, *args, **kwargs):
-        amigo = Amigo.objects.create_user(
-            request.POST['usuario'],
-            request.POST['email'],
-            request.POST['password']
-        )
-        
-        amigo.save()
-        login(request, amigo)
-        return http.HttpResponseRedirect('/')
-        ## redirecionar para o dashboard, usuário já logado
+        form = RegistroForm(request.POST)
+        if form.is_valid():
+            amigo = Amigo.objects.create_user(
+                form.cleaned_data['username'],
+                form.cleaned_data['email'],
+                form.cleaned_data['password']
+            )
+            
+            login(request, amigo)
+            return http.HttpResponseRedirect('/')
+            ## redirecionar para o dashboard, usuário já logado
+        else:
+            return render(request, 'core/auth/cadastro.html', {'form':form})

@@ -1,7 +1,14 @@
 <form action="cadastro" method="post">
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
     {% csrf_token %}
     <label for="">Arroba 
-        <input type="text" name="usuario" id="">
+        <input type="text" name="username" id="">
     </label><br>
     <label for="">Email 
         <input type="email" name="email" id="">
